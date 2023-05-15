@@ -10,15 +10,31 @@ class Summarrydata extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: summary.map((data) {
+            final bool isCorrectAns =
+                data['choosen_ans'] == data['correct_ans'];
+
             return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(((data['question_index'] as int) + 1).toString()),
+                Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: isCorrectAns ? Colors.lightGreen : Colors.red,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Text(((data['question_index'] as int) + 1).toString(),
+                      style: const TextStyle()),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
                 Expanded(
                   child: Column(
                     children: [
                       Text(data['question'] as String),
                       const SizedBox(
-                        height: 5,
+                        height: 25,
                       ),
                       Text(data['choosen_ans'] as String),
                       const SizedBox(
@@ -27,8 +43,10 @@ class Summarrydata extends StatelessWidget {
                       Text(
                         data['correct_ans'] as String,
                         style: const TextStyle(
-                            color: Colors.white,
-                            backgroundColor: Color.fromARGB(255, 2, 117, 5)),
+                            color: Colors.black, backgroundColor: Colors.green),
+                      ),
+                      const SizedBox(
+                        height: 25,
                       )
                     ],
                   ),

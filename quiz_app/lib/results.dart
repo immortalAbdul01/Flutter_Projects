@@ -44,11 +44,16 @@ class Result extends StatelessWidget {
                     fontSize: 28,
                     fontWeight: FontWeight.bold)),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             Summarrydata(summaryData),
-            TextButton(
-                onPressed: restartQuiz, child: const Text('Restart the quiz'))
+            TextButton.icon(
+                onPressed: restartQuiz,
+                icon: const Icon(IconData(0xe514, fontFamily: 'MaterialIcons')),
+                label: const Text(
+                  'Restart the quiz',
+                  style: TextStyle(color: Colors.white),
+                ))
           ],
         ),
       ),
