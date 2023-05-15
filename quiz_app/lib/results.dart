@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/questions_data.dart';
+import 'package:quiz_app/questions_summary.dart';
 
 class Result extends StatelessWidget {
   const Result(this.restartQuiz, {super.key, required this.choosenAnswers});
@@ -23,6 +24,11 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(context) {
+    final noOfTotalQuestion = questions.length;
+    final summaryData = summaryQnA();
+    final noOfCorrectAns = summaryData.where((element) {
+      return element['correct_ans'] == element['choosen_ans'];
+    }).length;
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -31,7 +37,8 @@ class Result extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('helo',
+            Text(
+                'You have answered $noOfCorrectAns correct answers out of $noOfTotalQuestion questions',
                 style: GoogleFonts.lato(
                     color: Colors.white,
                     fontSize: 28,
@@ -39,7 +46,7 @@ class Result extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const Text('Anwers for your question'),
+            Summarrydata(summaryData),
             TextButton(
                 onPressed: restartQuiz, child: const Text('Restart the quiz'))
           ],

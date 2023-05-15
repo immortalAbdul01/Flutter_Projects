@@ -36,7 +36,7 @@ class _Questions extends State<Questions> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.network(
-                'https://imgix.bustle.com/rehost/2016/9/13/1f18c1cd-dcfd-4be9-a4bc-96e823d43801.jpg?w=614&fit=crop&crop=faces&auto=format%2Ccompress&q=50&dpr=2',
+                questions[currentQuestionIndex].image,
                 width: 300,
               ),
               const SizedBox(

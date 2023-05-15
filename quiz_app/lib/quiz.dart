@@ -23,6 +23,7 @@ class _Quiz extends State<Quiz> {
 
   void restartTheQuiz() {
     setState(() {
+      selectedAnswers = [];
       activeScreen = 'start';
     });
   }
@@ -31,7 +32,7 @@ class _Quiz extends State<Quiz> {
     selectedAnswers.add(ans);
     setState(() {
       if (selectedAnswers.length == questions.length) {
-        selectedAnswers = [];
+        // selectedAnswers = [];
         activeScreen = 'result';
       }
     });
