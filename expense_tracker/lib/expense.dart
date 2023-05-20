@@ -14,29 +14,35 @@ class _Expenses extends State<Expenses> {
   @override
   final List<Purchase> registerList = [
     Purchase(
-        amount: '1999',
+        amount: 199.90,
         date: DateTime.now(),
         title: 'Udemy course',
         category: Category.eductation),
     Purchase(
-        amount: '345',
+        amount: 345.0,
         date: DateTime.now(),
         title: 'Netflix subscription',
         category: Category.movie),
     Purchase(
-        amount: '24000',
+        amount: 2400.0,
         date: DateTime.now(),
         title: 'Laptop',
         category: Category.work),
     Purchase(
-        amount: '100',
+        amount: 10.0,
         date: DateTime.now(),
         title: 'choclate',
         category: Category.food)
   ];
+  @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      body: ExpenseList(listOfExpenses: registerList),
+      body: Column(
+        children: [
+          const Text('List of items here and there '),
+          Expanded(child: ExpenseList(listOfExpenses: registerList))
+        ],
+      ),
     ));
   }
 }
