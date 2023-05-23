@@ -36,13 +36,50 @@ class _Expenses extends State<Expenses> {
         category: Category.food)
   ];
 
+  void _addExpense(Purchase purchase) {
+    setState(() {
+      registerList.add(purchase);
+    });
+  }
+
+  void _removeExpense(Purchase purchase) {
+    final indexOfExpense = registerList.indexOf(purchase);
+    setState(() {
+      registerList.remove(purchase);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('deleted the expense'),
+      duration: const Duration(seconds: 5),
+      action: SnackBarAction(
+          label: 'undo',
+          onPressed: () {
+            setState(() {
+              registerList.insert(indexOfExpense, purchase);
+            });
+          }),
+    ));
+  }
+
   void showOverlay() {
     showModalBottomSheet(
-        context: context, builder: ((context) => const NewExpense()));
+        isScrollControlled: true,
+        context: context,
+        builder: ((context) => NewExpense(
+              onAddExpense: _addExpense,
+            )));
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(child: Text('Nothing is here'));
+    if (registerList.isNotEmpty) {
+      mainContent = ExpenseList(
+        listOfExpenses: registerList,
+        onRemoveExpense: _removeExpense,
+      );
+    }
+
     return (Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -52,8 +89,17 @@ class _Expenses extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text('List of items here and there '),
-          Expanded(child: ExpenseList(listOfExpenses: registerList))
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            'List of items here and there ',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(child: mainContent)
         ],
       ),
     ));
